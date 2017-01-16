@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>冒泡排序</title>
+</head>
+<body>
+  <script type="text/javascript">
+    var mgArray =[10,23,9,3,11,52,58,420,52,1,55,55,42,36,54,42,12,45,25,855];
+    //第一次冒泡 k=0
+    // for (var i = 0; i < mgArray.length-1; i++) {
+    //     if(mgArray[i]>mgArray[i+1]){
+    //         var tmpe = mgArray[i];
+    //         mgArray[i]= mgArray[i+1];
+    //         mgArray[i+1]=tmpe
+    //     }
+    // }
+    // console.log(mgArray);
+    //  //第2次冒泡 k=1
+    // for (var i = 0; i < mgArray.length-1-1; i++) {
+    //     if(mgArray[i]>mgArray[i+1]){
+    //         var tmpe = mgArray[i];
+    //         mgArray[i]= mgArray[i+1];
+    //         mgArray[i+1]=tmpe
+    //     }
+    // }
+    // console.log(mgArray); k=2
+    // //第3次冒泡
+    // for (var i = 0; i < mgArray.length-1-2; i++) {
+    //     if(mgArray[i]>mgArray[i+1]){
+    //         var tmpe = mgArray[i];
+    //         mgArray[i]= mgArray[i+1];
+    //         mgArray[i+1]=tmpe
+    //     }
+    // }
+    // console.log(mgArray);
+      for(var k =0; k<mgArray.length-1;k++){
+        for (var i = 0; i < mgArray.length-1-(k); i++){
+            if(mgArray[i]>mgArray[i+1]){
+              var tmpe = mgArray[i];
+              mgArray[i]= mgArray[i+1];
+              mgArray[i+1]=tmpe
+            }
+        }
+      }
+      console.log(mgArray)
+  </script>
+</body>
+</html>

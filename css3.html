@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css3</title>
+	<style type="text/css">
+	*{
+		margin: 0;
+        padding:0;
+        font-family: "微软雅黑";
+	}
+	html,body{
+		 background: #eeeeee;
+	}  
+	 ol,ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	/* 模版布局 */
+	#wrapper{
+		 width:1100px;
+         margin:0 auto;
+	}
+	#wrapper>header{
+		text-align: center;
+		height: 60px;
+		line-height: 60px;
+		font-weight:bold;
+        font-size: 60px;
+        padding: 10px;
+        margin-bottom: 40px;
+	     background:-webkit-linear-gradient(left,#fff,#f0f);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+	}
+	#wrapper section{
+		min-height: 400px;
+		box-shadow: 5px 5px 3px 0px gray;
+		margin-bottom: 20px;
+	}
+	#wrapper section>header{
+	 	padding: 5px;
+        text-align: center;
+        font-size: 30px;
+       	background: repeating-linear-gradient(45deg,rgba(255, 0, 0, 0.5), rgba(255,255, 0, 0.5) 10%, rgba(255, 0, 0, 0.5) 20%);
+        font-weight: bold;
+	}
+	#wrapper section>.content{
+        position: relative;
+        height: 350px;
+        background-color: #fff;
+     }
+     /*八卦*/
+     @-webkit-keyframes move{
+      from { -webkit-transform:rotate(0deg)}
+      to { -webkit-transform:rotate(180deg)}
+    }
+     #wrapper section:nth-child(2)>.content{
+     	background-color: #666;
+     }
+ 	section:nth-child(2)>.content div{
+ 		position: absolute;
+        top:20px;
+        left:calc(50% - 150px) ;
+        width:0px;
+        height:300px;
+		border-style: solid; 
+		border-left-width:150px;
+        border-left-color: #000;
+        border-right-width: 150px;
+        border-right-color: #fff;
+        border-bottom: 0;
+        border-top: 0;
+        border-radius: 50%;
+        animation: move 1s linear;
+
+     }
+    section:nth-child(2)>.content div::before{
+		content: '';
+        width:30px;
+        height:30px;
+        background-color: #000;
+        border-style: solid;
+        border-width: 60px;
+        border-color: #fff;
+        position: absolute;
+        left:-75px;
+        top: 0px;
+        border-radius: 50% ;
+     }
+    section:nth-child(2)>.content div::after{
+		content: '';
+        width:30px;
+        height:30px;
+        background-color: #fff;
+        border-style: solid;
+        border-width: 60px;
+        border-color: #000;
+        position: absolute;
+        left:-75px;
+        top: 150px;
+        border-radius: 50% ;
+     }
+     /*时钟效果*/
+  
+	/* 表盘 */
+	.clock {
+		position: relative;
+		top:50px;
+		left:calc(50% - 100px);
+		width: 200px;
+		height: 200px;
+		border-radius: 50%;
+		background-color: #292a38;			
+	}
+	/* 中心 */
+	.pointer li.circle {
+		position: absolute;
+		top: calc(50% - 5px);
+		left: calc(50% - 5px);
+		background: #fff;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+	}
+	/* 刻度 */
+/* 	.line-demo {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: rotate(-60deg) translate(75px, -50%) ;
+		transform-origin: left center;
+		width: 20px;
+		height: 5px;
+		background-color: red;
+		z-index: 1;	
+	} */
+	.line-hour li,.line-min li {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform-origin: left center;
+		background-color: #fff;
+	}
+	.line-hour li {
+		width: 8px;
+		height: 2px;
+	}
+	.line-min li {
+		width: 4px;
+		height: 2px;
+	}
+	/* 表盘数字刻度 */
+	.number {
+		position: absolute;
+		height:140px;
+		width: 140px;
+		left: calc(50% - 70px);
+		top: calc(50% - 70px);
+		border-radius: 50%;
+		font-size: 12px;
+		color: #fff;
+	}
+	.number li {
+		position: absolute;
+		height: 18px;
+		width: 18px;
+		text-align: center;
+		line-height: 18px;
+		border-radius: 50%;
+	}
+	/*指针*/
+	.pointer li {
+		position: absolute;
+		transform-origin: left center;
+		background: #fff;
+	}
+	.pointer li.hour {
+		width: 45px;
+		height: 4px;
+		left: 50%;
+		top: calc(50% - 2px);
+	}
+	.pointer li.min {
+		width: 60px;
+		height: 2px;
+		left: 50%;
+		top: calc(50% - 1px);
+	
+	}
+	.pointer li.sec {
+		width: 80px;
+		height: 1px;
+		left: 50%;
+		top: calc(50%);
+	}
+	/*  动画 */
+	
+	.nav-wrap {
+	  	position: relative;
+	  	width: 300px;
+		height: 300px;
+		border: 2px dotted #4e5061;
+		border-radius: 50%;
+		top: calc(50% - 151px);
+		left: calc(50% - 151px);
+	}
+	.nav-wrap .main-nav {
+		position: absolute;
+		top: calc(50% - 30px);
+		left: calc(50% - 30px);
+		width: 60px;
+		height: 60px;
+		line-height: 60px;
+		text-align: center;
+		text-decoration: none;
+		color: #fff;
+		border-radius: 50%;
+		box-shadow: 0px 5px 2px #666;
+		background: #090;
+		transition:background-color 1s ease-in;
+	}
+	.nav-wrap .main-nav:hover{
+		background-color:#630;
+	}
+	.nav-wrap nav {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		transform: scale(0);
+		transition: all 1s linear;
+		opacity: 0;
+	}
+	.nav-wrap.active nav {
+			transform: scale(1);
+			opacity: 1;
+	}
+	.nav-wrap nav > a{
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		background: #f44283;
+		text-align: center;
+		line-height: 30px;
+		text-decoration: none;
+		color: #fff;
+		border-radius: 50%;
+		transform: translate(-50%,-50%);
+	}
+	/* 照片墙 */
+	 img{
+		padding:10px 10px 15px; 
+		background:white; 
+		border:1px solid #ddd; 
+		box-shadow:2px 2px 3px rgba(50, 50, 50, 0.4);
+		-webkit-transition:all 0.5s ease-in;
+		-webkit-transform:rotate(-45deg); 
+		position:absolute; 
+		z-index:1;
+		width: 160px;
+		left: 425px;
+		top:100px ;
+	}
+ 	img:hover{
+		box-shadow:15px 15px 20px rgba(50, 50, 50, 0.4); 
+		-webkit-transform:rotate(0deg) scale(1.5); 
+		z-index:2;
+	}	
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<header>css3</header>
+		<section>
+			<header>css3太极</header>
+			<div class="content">
+			 <div></div>
+			</div>
+		</section>
+		<section>
+			<header>CSS 时钟效果</header>
+			<div class="content">
+				 <div class="clock">
+					<ul class="line-min"></ul>
+					<ul class="line-hour"></ul>
+					<ol class="number"></ol>
+					<ul class="pointer">
+						<li class="hour"></li>
+						<li class="min"></li>
+						<li class="sec"></li>
+						<li class="circle"></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<section>
+			<header>动画</header>
+			<div class="content">
+				<div class="nav-wrap">
+					<nav>
+						<a class="nav-item">1</a>
+						<a class="nav-item">2</a>
+						<a class="nav-item">3</a>
+						<a class="nav-item">4</a>
+						<a class="nav-item">1</a>
+						<a class="nav-item">2</a>
+						<a class="nav-item">3</a>
+						<a class="nav-item">4</a>
+						<a class="nav-item">1</a>
+						<a class="nav-item">2</a>
+						<a class="nav-item">3</a>
+						<a class="nav-item">4</a>
+					</nav>
+					<a class="main-nav" href="javascript:;">点我</a> 
+				</div>
+			</div>
+		</section>
+		<section>
+			<header>照片墙</header>
+			<div class="content">
+			 	<img  src="1.jpg">	
+			</div>
+		</section>
+	</div>
+	<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		/*
+		 * 绘制钟表刻度线
+		 * @param wrap 刻度线的父容器
+		 * @param total 刻度线的总个数
+		 * @param translateX 刻度线在x轴方向的偏移量
+		 */
+		function drawLines(wrap, total, translateX){
+			var gap = 360/total;
+			var strHtml = '';
+			for(var i=0; i<total; i++){
+				strHtml += '<li style="transform:rotate('+ (i*gap) + 'deg) translate(' + translateX + 'px,-50%)"></li>';
+			}
+			wrap.html(strHtml);
+		};
+		/* 
+		 * 绘制时钟数字
+		 * @param wrap 数字的父容器
+		 */
+		function drawNumbers(wrap){
+			var radius = wrap.width() / 2;
+				console.log(radius)
+			var strHtml = '';
+			for(var i=1; i<=12; i++){
+				var myAngle = (i-3)/6 * Math.PI;
+				var myX =parseInt(radius + radius*Math.cos(myAngle));// x=r+rcos(θ)
+				var	myY =parseInt(radius + radius*Math.sin(myAngle)) ; // y=r+rsin(θ)
+				strHtml += '<li style="left:' + (myX-8) + 'px; top:'+ (myY-8)+'px">' + i + '</li>';
+			}
+			wrap.html(strHtml);
+		}
+		/*
+		 * 钟表走动，转动秒针、分针、时针
+		 */
+		function setTime () {
+			var domHour = $(".hour"),
+			    domMin = $(".min"),
+			    domSec = $(".sec");
+			var now = new Date(),
+			hour = now.getHours(),
+		    min = now.getMinutes(),
+		    sec = now.getSeconds();
+			var secAngle = sec*6 - 90,  // s*6-90
+		    minAngle = min*6 + sec*0.1 - 90,  // m*6+s*0.1-90
+		    hourAngle = hour*30 + min*0.5 - 90;  // h*30+m*0.5 - 90
+			domSec.css('transform', 'rotate(' + secAngle + 'deg)');
+			domMin.css('transform', 'rotate(' + minAngle + 'deg)');
+			domHour.css('transform', 'rotate(' + hourAngle + 'deg)');
+		}
+
+		 $(function  () {
+		 	/*时钟效果*/
+		 	drawLines($('.line-min'), 60, 85);
+			drawLines($('.line-hour'), 12, 80);
+			drawNumbers($('.number'));
+			setTime ();
+			setInterval(setTime,1000);
+
+			/* 动画 */
+			// 当菜单没被激活时
+				var falg  = false;
+			$(".nav-wrap").on("click",".main-nav",function (e) {
+				e.preventDefault();
+				var $this =$(this);
+				var navWrap = $this.closest(".nav-wrap");
+				var  navItem = navWrap.find('.nav-item');
+				// console.log($this)
+				// console.log(navwrap)
+				// console.log(navItem)
+
+				if(!navWrap.hasClass('active') && !falg){
+					// 圆的半径 raduis
+					var  radius = navWrap.width()/2;
+						
+					// 圆形菜单的起始、终止角度
+					var startAngle =0,endAngle = 360;
+					//子菜单的个数
+					var total = navItem.length;
+					// 两个子菜单间的夹角 gap
+					var gap = (endAngle - startAngle)/total;
+					//console.log(gap)
+					//弧度转换
+					var radian = Math.PI / 180
+
+					// 计算并确定各个子菜单的最终位置
+					$.each(navItem,function(index, el) {
+
+						// 当前子菜单与x轴正向的夹角 θ （角度->弧度）
+						var myAngle = (startAngle + gap*index) * radian;
+						// 计算当前子菜单相对于左上角(0,0)的坐标 (x,y)
+						var myX = radius + radius * Math.cos( myAngle );// x=r+rcos(θ)
+						var myY = radius + radius * Math.sin( myAngle ); // y=r+rsin(θ)
+						//设置左边
+						$(this).css({
+		                   	 	left: myX + 'px',
+		                    	top:  myY + 'px'
+		                 });
+
+						
+					});
+					// 可以激活
+					falg =true
+				}
+				navWrap.toggleClass('active');
+			})
+
+		 })
+
+		console.log( $(".nav-wrap").pushStack($("img")))
+
+	</script>
+</body>
+</html>

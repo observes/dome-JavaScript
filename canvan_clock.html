@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时钟</title>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	</style>
+</head>
+<body>
+	<canvas width="500" height="500" id="canvas">
+		不支持canvas
+	</canvas>
+<script type="text/javascript">
+	var canvas = document.querySelector("#canvas");
+	//获取绘图环境
+	var cxt = canvas.getContext("2d")
+	clock ();
+	setInterval(clock,1000);
+	function clock () {
+		//清楚画布
+		cxt.clearRect(0,0,500,500)
+		// 当前时间
+		var nowdata = new Date();
+		var sec = nowdata.getSeconds();
+		var min= nowdata.getMinutes();
+		var hour = nowdata.getHours();
+		//将24小时转换12小时
+		hour = hour>12?hour-12:hour;
+		//表盘
+		cxt.lineWidth = 2;
+		cxt.strokeStyle ="pink";
+		cxt.beginPath()
+		cxt.arc(250,250,200,0,360,false)
+		cxt.closePath();
+		cxt.stroke();
+		//小时刻度
+		for (var i = 0; i < 12; i++) {
+			cxt.save();
+			cxt.lineWidth = 2;
+			cxt.strokeStyle ="#999";
+			cxt.translate(250,250);
+			cxt.rotate(30*i*Math.PI/180);
+			cxt.beginPath();
+			cxt.moveTo(0, 176);
+			cxt.lineTo(0,191)
+			cxt.closePath();
+			cxt.stroke();
+			cxt.restore();
+		};
+		//分钟
+		for(var j=0;j<60;j++){
+			cxt.save();
+			cxt.lineWidth = 2;
+			cxt.strokeStyle ="#999";
+			cxt.translate(250,250);
+			cxt.rotate(6*j*Math.PI/180);
+			cxt.beginPath();
+			cxt.moveTo(0, 186);
+			cxt.lineTo(0,191)
+			cxt.closePath();
+			cxt.stroke();
+			cxt.restore();
+		};
+		//时针
+		cxt.save()
+		cxt.lineWidth = 4;
+		cxt.strokeStyle="#000";
+		cxt.translate(250,250);
+		cxt.rotate((30*hour+30/60*min +30/3600*sec).toFixed(3)*Math.PI/180); 
+		// 一个小时走30度 30*3=90[0.360]
+		//1秒 30/3600*30=0.25  [0, 0.5]
+		//1分钟30/60*15= 7[0,30] 
+		// 30*hour+30/60*min +30/3600*sec
+		cxt.beginPath(); 
+		cxt.moveTo(0,10);
+		cxt.lineTo(0,-120);
+		cxt.closePath();
+		cxt.stroke();
+		cxt.restore();
+		//分针
+		cxt.save()
+		cxt.lineWidth = 2;
+		cxt.strokeStyle="#0f0";
+		cxt.translate(250,250);
+		cxt.rotate(((0.1*sec+6*min).toFixed(1))*Math.PI/180);
+		// 一秒钟分针0.1度 6/60=0.1  0.1*60s = 6(秒走过的度数[0,6])  分自己走过的角度 6*20=120[0,360]
+		cxt.beginPath(); 
+		cxt.moveTo(0,15);
+		cxt.lineTo(0,-140);
+		cxt.closePath();
+		cxt.stroke();
+		cxt.restore();
+		//秒针
+		cxt.save()
+		cxt.lineWidth = 1;
+		cxt.strokeStyle="#f00"; 
+		cxt.translate(250,250);
+		cxt.rotate(sec*6*Math.PI/180); 
+		cxt.beginPath();  
+		cxt.moveTo(0,20); 
+		cxt.lineTo(0,-175);
+		cxt.closePath();
+		cxt.stroke();
+		//画分针时针交叉的小原点
+		cxt.beginPath(); 
+		cxt.fillStyle ="#000";
+		cxt.arc(0,0,5,0,360,false) 
+		cxt.closePath();
+		cxt.fill();
+		cxt.stroke();
+		//画分针前面的小圆点
+		/*
+		cxt.beginPath(); 
+		cxt.fillStyle ="#000";
+		cxt.arc(0,-140,5,0,360,false) 
+		cxt.closePath();
+		cxt.fill();
+		cxt.stroke();
+		*/
+		cxt.restore();	
+	}
+</script>
+</body>
+</html>
