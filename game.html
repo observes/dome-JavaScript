@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <input type="button" id="stragame" value="stragame">
+    <input type="button" id="stopgame" value="stopgame">
+     你当前的分数：<input type="text" id="gamesort" disabled value=0>
+<script type="text/javascript">
+    function createCode(){
+        var str= "QWERTYUIOPASDFGHJKLZXCVBNM";
+        return code =  str.charAt( creatRandom(str.length))
+    }
+    function creatRandom(Max){
+        return parseInt(Math.random()*Max)
+    }
+
+   function creatLable(pagWidth){
+       var lable = document.createElement("lable");
+       lable.innerHTML = createCode();
+       lable.style.position ="absolute";
+       lable.style.top = "50px";
+       lable.style.left = creatRandom(pagWidth-100)+ "px";
+       document.body.appendChild(lable);
+       return lable;
+   }
+   function  removeLable(keyValue,fn){
+       for(var k =0;k<lableArr.length;k++){
+           if(lableArr[k].innerHTML.toLocaleLowerCase() ===keyValue.toLocaleLowerCase() ){
+               document.body.removeChild(lableArr[k]);
+               lableArr.splice(k,1);
+               fn();
+           }
+       }
+   }
+
+
+
+    var flag = false;
+    var lableArr  = [];
+    var pagWidth = document.documentElement.offsetWidth ||  document.body.offsetWidth;
+    var pagHeight = document.documentElement.clientHeight|| document.body.clientHeight;
+    var gamevalue = document.getElementById("gamesort");
+    var num = parseInt(gamevalue.value);
+    window.onresize =function(){
+        pagWidth = document.documentElement.offsetWidth ||  document.body.offsetWidth;
+        pagHeight = document.documentElement.clientHeight|| document.body.clientHeight;
+        //console.log(pagWidth,pagHeight)
+    };
+    document.getElementById("stragame").onclick=function(){
+        flag =true;
+    };
+    document.getElementById("stopgame").onclick=function(){
+        flag =false;
+    };
+    setInterval(function(){
+        if(flag){
+            var lable =creatLable(pagWidth);
+            lableArr.push(lable);
+        }
+    },500);
+    setInterval(function(){
+        if(flag){
+           for(var i = 0;i<lableArr.length;i++){
+               var lableTop= parseInt(lableArr[i].style.top );
+               var maxTop = lableTop -50;
+               if((lableTop)>pagHeight-50){
+                   document.body.removeChild(lableArr[i]);
+                   lableArr.splice(i,1);
+                   num  -=10;
+                   gamevalue.value =num;
+               }else {
+                   lableArr[i].style.top= (lableTop+5)+"px";
+               }
+           }
+        }
+    },30);
+    document.onkeydown =function(e){
+        var keyValue = String.fromCharCode(e.keyCode);
+        removeLable(keyValue,function(){
+            num +=10;
+            gamevalue.value =num;
+        })
+    };
+
+</script>
+</body>
+</html>
