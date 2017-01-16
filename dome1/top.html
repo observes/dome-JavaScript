@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>回到顶部</title>
+		<style type="text/css">
+			span{
+				width: 64px;
+				height: 64px;
+				background: url(img/top.png) no-repeat;
+				display: block;
+				position: fixed;
+				top: 80%;
+				right: 5px;
+				display: none;
+			}
+		</style>
+	</head>
+	<body style="height: 3000px;">
+		 <span id="spantop">
+		 </span>
+		 <script type="text/javascript">
+		 	var spanTop = document.getElementById("spantop");
+		 	
+		 	document.onscroll = function (){
+		 		var scrollTop =document.body.scrollTop||document.documentElement.scrollTop
+		 		if (scrollTop > 300) {
+		 			spanTop.style.display = "block";
+		 		} else{
+		 			spanTop.style.display = "none";
+		 		}
+		 	};
+		 	spanTop.onclick = function (){
+		 			var speed =30;
+		 			var scrollTop =document.body.scrollTop||document.documentElement.scrollTop
+		 			var timer =setInterval( function(){
+		 			scrollTop = scrollTop-speed;
+		 			document.body.scrollTop = scrollTop ;
+		 			document.documentElement.scrollTop = scrollTop ;
+		 			console.log(document.body.scrollTop,document.documentElement.scrollTop)
+		 			if(scrollTop <= 0 ){
+		 				clearInterval(timer)
+		 			}
+		 			},30)
+		 	}
+		 </script>
+	</body>
+</html>

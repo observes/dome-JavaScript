@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>js轮播图</title>
+	<script src="js/1.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		img{
+			display: block;
+		}
+		
+		/*轮播大容器*/
+		#silder{
+			width: 520px;
+			margin: 100px auto;
+			height: 280px;
+			border: 1px solid #ccc;
+			overflow: hidden;
+			position: relative;
+		}
+		/*图片容器*/
+		.silderpic{
+			width: 2600px;
+			height: 100%;
+			position: absolute;
+			left: -520px;
+			top: 0;
+		}
+		.silderpic li{
+			float: left;
+		}
+		/*左右按钮*/
+		.leftbtn{
+			width: 60px;
+			height: 60px;
+			position: absolute;
+			top: 110px;
+			left: 0;
+			background: url(img/btn.gif) no-repeat 0px 0px;
+		}
+		.rightbtn{
+			width: 60px;
+			height: 60px;
+			position: absolute;
+			top: 110px;
+			right: 0;
+			background: url(img/btn.gif) no-repeat 0px -60px;
+		}
+		
+		/*控制台*/
+		.btn{
+			width: 90px;
+			height: 20px;
+			position: absolute;
+			bottom: 5px;
+			left: 215px;
+		}
+		.btn li{
+			width: 20px;
+			height:20px;
+			background-color: #eee;
+			border-radius: 50%;
+			line-height: 20px;
+			text-align: center;
+			float: left;
+			margin-right: 10px;
+		}
+		.btn li.active{
+			background-color: #f00;
+		}
+	</style>
+</head>
+<body>
+	<div id="silder">
+		<!--图片-->
+		<ul class="silderpic" id="silderpic">
+			<li><a href="javascript:;"><img src="img/c.jpg" alt="" /></a></li>
+			<li><a href="javascript:;"><img src="img/a.jpg" alt="" /></a></li>
+			<li><a href="javascript:;"><img src="img/b.jpg" alt="" /></a></li>
+			<li><a href="javascript:;"><img src="img/c.jpg" alt="" /></a></li>
+			<li><a href="javascript:;"><img src="img/a.jpg" alt="" /></a></li>
+		</ul>
+		
+		<!--左右按钮-->
+		<div class="leftbtn" onclick="go(--currentIdenx)"  id="leftbtn"></div>
+		<div class="rightbtn" onclick="go(++currentIdenx)" id="rightbtn"></div>
+		
+		<!--控制-->
+		<ul class="btn" id="btn">
+			<li class="active">1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+	
+	
+	
+		var silderpic = document.getElementById("silderpic")
+		var silder = document.getElementById("silder");
+		var btn = document.getElementById("btn");
+		var btnlis = btn.getElementsByTagName("li");
+		var currentIdenx = 1;
+		function go(indenx){
+			
+			currentIdenx =  indenx;
+			//图片移动	
+				
+			var newVaule = -520* currentIdenx
+			if (currentIdenx == 4) {
+				currentIdenx = 1
+			}else if(currentIdenx == 0){;
+				currentIdenx = 3
+			}
+			move(silderpic,"left",newVaule,500,easing_1,function(){
+				
+				if (newVaule==0) {
+					silderpic.style.left = - 1560+"px" ;
+				} else if(newVaule == -2080){
+					silderpic.style.left = - 520+"px" ;
+				}
+			})
+			
+			//图标移动
+			for (var i = 0; i < btnlis.length; i++) {
+				btnlis[i].className ="";
+			}
+			btnlis[currentIdenx-1].className ="active"
+		}
+		
+		//点击小图标
+		for (var j = 0; j < btnlis.length; j++) {
+			btnlis[j].indenx = j ;
+			btnlis[j].onclick = function  () {
+				go(this.indenx+1);
+			}
+			
+		}
+		
+		
+		//自动轮播
+		
+		var leftbtn = document.getElementById("leftbtn");
+		var rightbtn = document.getElementById("rightbtn");
+		var flag = true ;
+		silder.onmouseenter = function(){
+			flag  = false;
+			console.log("b")
+		}
+		silder.onmouseleave = function() {
+			flag = true;
+			console.log("a")
+		}
+		setInterval(function(){
+			if(flag){
+				go(++currentIdenx )
+			}
+		},3000)
+	</script>
+</body>
+</html>

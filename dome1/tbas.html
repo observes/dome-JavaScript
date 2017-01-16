@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body,ul{
+				margin: 0;
+				padding: 0;
+			}
+			.tabs{
+				width: 272px;
+				margin: 100px auto;
+			}
+			ul{
+				overflow: hidden;
+				list-style: none;
+				border: 1px solid #ccc;
+			}
+			li{
+				float: left;
+				padding:0 20px ;
+				font-size: 16px;
+				line-height: 16px;
+				width: 50px;
+			}
+			li.active{
+				background-color: salmon;
+			}
+			.tabscontent div{
+				display: none;
+				border: 1px solid lightcoral;
+				margin-top: 10px;
+			}
+			.tabscontent div.on{
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="tabs">
+			<div class="tabstitile" id="tabstitile">
+				<ul>
+					<li class="active">itme1</li>
+					<li>itme2</li>
+					<li>itme3</li>
+				</ul>
+			</div>
+			<div class="tabscontent"  id="tabscontent">
+				<div class="on">内容1</div>
+				<div>内容2</div>
+				<div>内容3</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+		 var tabstitile = document.getElementById("tabstitile");
+		 var tabscontent =document.getElementById("tabscontent");
+		 
+		 
+		 var aDiv = tabscontent.getElementsByTagName("div");
+		 var aLi = tabstitile.getElementsByTagName("li");
+		 
+		 
+		 for (var i = 0; i < aLi.length; i++) {
+		 	
+		 	aLi[i].indenx  = i;
+		
+		 	aLi[i].onclick = function  () {	
+		 		
+			 	for (var j = 0; j < aLi.length; j++) {
+			 			aLi[j].className ="";
+			 	}
+			 	this.className ="active";
+			 	console.log(this.indenx);
+			 	
+			 	
+			 	for (var k= 0; k < aDiv.length; k++) {
+			 		aDiv[k].className ="";
+			 	}
+			 	aDiv[this.indenx].className ="on";
+		 	}
+		 }
+		 
+		</script>
+	</body>
+</html>
