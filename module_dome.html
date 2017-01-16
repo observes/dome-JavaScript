@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+	(function ($) {
+		//对$进行初始化
+		var $ = $||{};
+		//定义方法
+		$.define=function(str,fn) {
+			//将转换为数组
+			var strArr = str.split(".")
+			
+			firstlvble = strArr[0];
+			if(strArr[0]==="define" || strArr[0] =="use" ){
+				strArr.splice(0, 1)
+			}
+			if(fn){
+				this[strArr[0]] =fn;
+			}	  
+		};
+		//使用方法
+		$.use =function() {
+			var agrs  = [].slice.call(arguments)
+			var moduleNames =agrs[0]
+			if(!(moduleNames instanceof Array)){	
+				return;
+			}
+			var fn =agrs[1];
+			var modelArry =[];
+			for (var i = 0; i < moduleNames.length; i++) {
+				var moduleName = moduleNames[i]
+				if (typeof moduleName ==="string") {
+					modelArry.push(this[moduleName])
+				} else {
+					modelArry.push(moduleName)
+				}				
+			}
+			fn.apply(null,modelArry)
+		};				 
+		window.$ =$;
+	})(window.$);
+	</script>
+	<script type="text/javascript">
+		$.define("off",function() {
+			alert("message")
+		})
+		$.define("add",function(){
+		  var sum =0;
+		  for (var i = 0; i < arguments.length; i++) {
+		  	if(typeof arguments[i] ==="number")
+		  		sum += arguments[i];
+		  	}
+		  return sum
+		})
+		$.use (["add",window],function  (a,b) {
+			console.log(a(55,"4",555,"44"))
+		})	
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
