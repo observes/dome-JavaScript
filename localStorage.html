@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5页面</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0;
+		}
+		html,body{
+			width:100%;
+			height:100%;
+		}
+		#wrapper{
+			width:100%;
+			height:100%;
+			background: #dddddd;
+		}
+		header h1{
+			background-color: #0f4d92;
+			text-align: center;
+			padding: 8px;
+			color: #fff;
+			text-shadow: 1px 1px 2px #fff ;
+		}
+		nav{
+			height: 40px;
+			width: 100%;
+			background-color: #686868;
+		}
+		nav ul{
+			list-style: none;
+			text-align: center;
+		}
+		nav ul li{
+			display: inline;
+		}
+		nav ul li a{
+			display: inline-block;
+			text-decoration: none;
+			color: #fff;
+			background-color: burlywood;
+			margin: 5px 10px;
+			padding: 5px 10px;
+			border-radius:50px ;
+		}
+		.active{
+			color:#fff;
+			background-color: pink;
+		}
+		#addtask,#setting{
+			display: none;
+		}
+		/*tasklist */
+		section article{
+				background: #ffffff;
+				padding: 10px;
+				border-bottom: 1px solid #ccc;
+			}
+		section article:after{
+			content:'';
+			clear: both;
+			display: block;
+		}
+		section article time{
+			font-size: 0.5em;
+			color:#999999;
+			font-family: "微软雅黑";
+		}
+		section article .left-box{
+			padding-top: 5px;
+			padding-right: 10px;
+			float: left;
+		}
+		section article .right-box{
+			margin-left: 20px;
+			float: right;
+		}
+		section article .right-box button{
+			background: #ad390c;
+			color:#ffffff;
+			border-radius: 5px;
+			border :0;
+			padding: 7px;
+			cursor: pointer;
+		}
+
+		section article .center-box{
+			float: left;
+		}
+		/*addtask*/
+		section form{
+			margin: 0 10px;
+		}
+		section form *{
+			width:100%;
+			font-size: 1.1em;
+		}
+		section form label {
+			padding: 10px 0 5px 0;
+			font-weight: bold;
+		}
+		section form button {
+			width: 30%;
+			padding: 10px;
+			font-weight: bold;
+			background: #61ce3b;
+			border-radius: 5px;
+			cursor: pointer;
+			margin: 5px 30%;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>任务清单</h1>
+		</header>
+		<nav>
+			<ul>
+				<li><a href="javascript:;" class="active" data-page="#tasklist">任务列表</a></li>
+				<li><a href="javascript:;" data-page="#addtask">添加任务</a></li>
+				<li><a href="javascript:;" data-page="#setting">软件设置</a></li>
+			</ul>
+		</nav>
+		<section id="tasklist">
+		</section>
+		<section id="addtask">
+				<form>
+					<div>
+						<label>
+							内容
+							<textarea id="desc" type="text" rows="5"></textarea>
+						</label>
+					</div>
+					<div>
+						<label>
+							日期
+							<input id="duedate" type="date">
+						</label>
+					</div>
+					<button id="addTaskBtn">提交</button>
+				</form>
+		</section>
+		<section id="setting">系统</section>
+	</div>
+	<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript">
+		//点击切换
+		var $aArr =$("nav li a");
+		var $allslction =$("section");
+		$aArr.on("click",function(){
+			$aArr.removeClass("active");
+			$(this).addClass("active");
+
+			var slctionpage = $(this).data("page");
+			$allslction.hide();
+			$(slctionpage).show();
+		});
+		//设置本地储存
+		var $addTaskBtn =$("#addTaskBtn");
+		$addTaskBtn.on("click",function(){
+			var newtask={
+				"desc":$("#desc").val(),
+				"duedate":$("#duedate").val()
+			};
+			var tasklist = localStorage.getItem("tasklist");
+			if(typeof  tasklist ==="string"&&tasklist.length>0){
+				tasklist = JSON.parse(tasklist);
+			}
+			if(!tasklist||!tasklist instanceof  Array){
+				tasklist = [];
+			}
+			tasklist.push(newtask);
+			localStorage.setItem("tasklist",JSON.stringify(tasklist));
+			//添加完成在调用
+			showlocalStorage();
+			//请空输入框
+			$("#desc").val("");
+			$("#duedate").val("")
+
+		});
+		window.onload =function(){
+			showlocalStorage();
+		};
+		//显示本地储存的信息
+		function  showlocalStorage(){
+			var tasklist = localStorage.getItem("tasklist");
+			//转为数组对象
+			tasklist = JSON.parse(tasklist);
+			//遍历添加到tasklis
+				var txt ="";
+				for(var i=0;i<tasklist.length;i++){
+					txt +='<article><div class="left-box"><input name="complete" type="checkbox"></div> <div class="center-box"><h5>'+tasklist[i].duedate+'</h5> <time>'+tasklist[i].desc+'</time></div><div class="right-box"> <button data-index='+i+'>删除</button> </div> </article>';
+				}
+				$("#tasklist").html(txt);
+		}
+		//给删除按钮绑定事件
+		$("#tasklist").on("click","button",function(e){
+			//确定删除那本地储存
+			var  tasknum =$(this).data("index");
+			//拿出本地储存删除对应的那条数据
+			var tasklist = localStorage.getItem("tasklist");
+			//转为数组对象
+			tasklist = JSON.parse(tasklist);
+			var newtasklist =[];
+			for(var i=0;i<tasklist.length;i++){
+				if(i===tasknum){
+					continue;
+				}
+				newtasklist.push(tasklist[i])
+			}
+			//把新的储存数组给原来的任务数组
+			tasklist = newtasklist;
+			//添加新的本地储存
+			localStorage.setItem("tasklist",JSON.stringify(tasklist));
+			//调用showlocalStorage函数 进行页面刷新
+			showlocalStorage();
+		})
+	</script>
+ </html>
+</body>
