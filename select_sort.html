@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>  
+  <style type="text/css">
+    #tbl{
+      border: 1px solid #999;
+      border-collapse: collapse;
+    }
+    #tbl td{
+      width: 50px;
+      height: 20px;
+      border: 1px solid #999;
+    }
+  </style>
+
+</head>
+<body>
+    <table id="tbl"></table>
+    <script> 
+        /*  选择排序 （算法）*/
+      var myArray= [510,2,38,14,1002,59,5,865,95,5000,65,79,51,69,78,52]
+      console.log(myArray.length)
+      //第一次比较
+      /*for (var i = 0; i < myArray.length-1; i++) {
+          if(myArray[0]>myArray[i+1]){
+            var tepm =myArray[0];
+            myArray[0]=myArray[i+1];
+            myArray[i+1]=tepm;    
+          }
+      }
+      console.log(myArray);
+      //第二次比较
+      for (var i = 1; i < myArray.length-1; i++) {
+          if(myArray[1]>myArray[i+1]){
+            var tepm =myArray[1];
+            myArray[1]=myArray[i+1];
+            myArray[i+1]=tepm;    
+          }
+      }
+      console.log(myArray);
+      //第三次比较
+      for (var i = 2; i < myArray.length-1; i++) {
+          if(myArray[2]>myArray[i+1]){
+            var tepm =myArray[2];
+            myArray[2]=myArray[i+1];
+            myArray[i+1]=tepm;    
+          }
+      }
+      console.log(myArray);
+
+      //第4次比较
+      for (var i = 3; i < myArray.length-1; i++) {
+          if(myArray[3]>myArray[i+1]){
+            var tepm =myArray[3];
+            myArray[3]=myArray[i+1];
+            myArray[i+1]=tepm;    
+          }
+      }
+      console.log(myArray);*/
+     for (var i = 0; i < myArray.length-1; i++) {
+          for (var j = i; j < myArray.length-1; j++) {
+            if(myArray[i]>myArray[j+1]){
+                var tepm =myArray[i];
+                myArray[i]=myArray[j+1];
+                myArray[j+1]=tepm;    
+            }     
+          }
+        
+      }
+      console.log(myArray);
+    </script>
+</body>
+</html>

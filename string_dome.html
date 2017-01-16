@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		//转驼峰函数法
+		var str ="border-left-color";
+		function touppercasrStr (str) {
+			var arrStr =str.split("-");
+			for(var i =1,len=arrStr.length;i<len;i++){
+				arrStr[i] = arrStr[i].charAt(0).toUpperCase()+arrStr[i].substring(1);
+			}
+			return arrStr.join("");
+		}
+		function touppercasrStr1 (str) {
+			 var re = /-([a-zA-Z])/g ;
+			 return str.replace(re,function ($0,$1) {
+			 		return $1.toUpperCase();	  
+			 }) 
+		}
+		var newstr =  touppercasrStr(str);
+		var newstr1 =  touppercasrStr1(str);
+		//console.log(newstr1)
+		//console.log(newstr)
+
+		//查找字符串最多
+		var str2 = "sjjjsjjjjsljjjjlssjjjjs";
+		function findMIxStr (str) {
+
+			var obj ={};
+			//出现最多的个数和最多的是那个；
+			var num = 0;
+			var strVaule="";
+
+			var  arrStr = str.split("");
+
+
+			for(var i =0,len=arrStr.length;i<len;i++){
+				if(!obj[arrStr[i]]){
+						obj[arrStr[i]]=[];
+				}
+				obj[arrStr[i]].push(arrStr[i]);
+			}  
+			//console.log(obj)
+
+			for(var attr in obj){
+				if(num<obj[attr].length){
+					num =obj[attr].length;
+					strVaule = obj[attr][0];
+				}
+			}	
+			//console.log(num,strVaule)
+			return "出现最多字母是"+strVaule+"出现次数为"+num;
+		}
+		var resules= findMIxStr(str2)
+		console.log(resules)
+		function findMIxStr2 (str) {
+			var strArr = str.split("");
+			 	strArr.sort();
+			var str =  strArr.join("");
+
+			var  re = /(\w)\1+/g;
+
+			//出现最多的个数和最多的是那个；
+			var num = 0;
+			var strVaule="";
+
+			str.replace(re,function ($0,$1) {
+				if(num<$0.length){
+					num = $0.length;
+					strVaule = $1;
+				}
+			})
+			//console.log(num,strVaule)
+			return "出现最多字母是"+strVaule+"出现次数为"+num;
+		}
+		var resules1 = findMIxStr2("hlsdklshiwehqjkehwqkjehjkwhekjqgfekjgrekrgewrgwekrjgwekjg");
+		console.log(resules1)
+		//千分符号
+		var string1='545555454' ;
+		function testnum(str,scroce) {
+			var newArrar = [];
+			var isNum = str.length%scroce;
+			var count=0;
+			var temp ="";
+			if (isNum) {
+					newArrar.push(str.substring(0,isNum))
+			}
+			var newStr = str.substring(isNum);
+			var newStrArr =  newStr.split("");
+			for(var i=0;i<newStrArr.length;i++){
+				count++;
+				temp += newStrArr[i];
+				if(count === scroce){
+					newArrar.push(temp)
+					count =0;
+					temp = "";
+				}
+			}
+			return newArrar.join(",")
+		}
+
+		var stringnum =testnum(string1,3);
+		console.log(stringnum)
+		//正则
+		function g (str) {
+			var re1 = /(?=(?!\b){\d{3}}+$)/g;//正向声明（？=），反向声明（？！）
+			return str.replace(re1, ',')
+		}
+		console.log(g(stringnum))
+		//快速排序
+		function  quicksort(arr) {
+			if (arr.length <= 1) {
+				return arr
+			}
+			var num = Math.floor(arr.length/2);
+			var numValue = arr.splice(num,1);
+			
+			var left = [];
+			var right = [];
+			for(var i=0;i<arr.length;i++){
+				if(arr[i]<numValue){
+					left.push(arr[i]);
+				}
+				else{
+					right.push(arr[i]);
+				}
+			}
+			return quicksort(left).concat([numValue],quicksort(right));	
+
+		}
+		console.log(quicksort([32,23,58,24,102,69]).toString())
+	</script>
+</body>
+</html>

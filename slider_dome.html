@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		#box{
+			height: 10px;
+			width: 200px;
+			margin: 300px auto;
+			background-color: #666;
+			border-radius: 8px;
+			position: relative;
+		}
+		.itme{
+			width: 20px;
+			height: 20px;
+			position: absolute;
+			top: -5px;
+			left: 0px;
+			border-radius:50%;  
+			background-color: #ff0;
+			cursor: pointer;
+			z-index: 2;
+		}
+		.itmetext{
+			width: 50px;
+			height: 50px;
+			border: 1px solid red;
+			position: absolute;
+			right: -70px;
+			top: -25px;
+			text-align: center;
+			line-height: 50px;
+			font-size: 16px;
+			color: #0ff;
+		}
+		.itme2{
+			height: 10px;
+			background-color: #f00;
+			border-radius: 8px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div class="itme"></div>
+		<div class="itme2"></div>
+		<div class="itmetext">0%</div>
+	</div>
+</body>
+<script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+	var oldX ,falg = false,newX,dX,oldLeft,newLeft;
+		$(".itme").mousedown(function(e) {
+			oldX = e.pageX;
+			falg = true;
+			//console.log(oldX)
+			oldLeft =parseInt($(this).css('left')) ;
+			console.log(oldLeft)
+			return false;
+		});
+		$(document).mousemove(function(e) {
+			if(falg){
+				newX =e.pageX;
+				//console.log(newX ) 
+				dX = newX - oldX;
+				//console.log(dX)
+				newLeft = oldLeft+dX;
+				if (newLeft<= 0) {
+					newLeft = 0;
+				}else if (newLeft >=190 ) {
+					newLeft = 190;
+				}
+				$(".itme").css('left',newLeft);
+
+				var n = parseInt(newLeft*100/190, 10);
+				console.log(n)
+				$(".itmetext").text(n+"%");
+				$(".itme2").width(newLeft+10)
+			}
+					
+		});
+		$("#box").mouseup(function(e) {
+				falg =false;
+				return false;
+		});
+		
+
+</script>
+</html>
